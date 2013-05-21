@@ -1,0 +1,29 @@
+RT-Xen implementation
+
+For a brief introduction about RT-Xen, please refer to RT-Xen website:
+https://sites.google.com/site/realtimexen/
+
+Here is the two sub-framework provided by RT-Xen.
+
+(1) A partitioned queue, static priority sub-framework.
+This framework associate a run queue with every core. The priority of VCPUs is assigned statically via the "-l" option. Users can assign priority according to rate monotonic scheduling policy or to their own needs. Currently, there is no support for load balancing. The schedulers currently implemented under this framework are:
+*  Deferrable Server (sched_deferrable.c)
+*  Slack-Stealing Periodic Server (sched_ssps.c)
+
+The scheduler implemented before but are not maintained are: (you can download them at RT-Xen webiste, but for Xen 4.0.1)
+*  Polling Server
+*  Sporadic Server
+*  Pure Periodic Server
+*  Work Conserving Periodic Server
+
+(2) A global queue, dynamic priority sub-framework.
+This framework creates a global queue that is shared by all VCPUs. An EDF based priority assignment is implemented. Users can create multiple VCPUs per domain, and tune each VCPU's (budget, period) via the 'sched-gedf' interface, using '-v' to specify which VCPU. The schedulers under this framework is:
+*  Deferrable Server (sched_gedf.c)
+
+
+
+
+
+
+
+
